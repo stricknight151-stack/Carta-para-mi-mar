@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para María 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–bg: #1a0a0f;
+–rose: #e8536a;
+–gold: #d4a853;
+–cream: #fdf0e0;
+–soft: #f5c6cb;
+–muted: #8a6070;
+}
+
+html { scroll-behavior: smooth; background: #1a0a0f; }
+
+body {
+background: #1a0a0f;
+color: #fdf0e0;
+font-family: ‘Lato’, sans-serif;
+font-weight: 300;
+overflow-x: hidden;
+}
+
+/* ── STARS ── */
+.stars {
+position: fixed; inset: 0;
+pointer-events: none;
+z-index: 0;
+}
+.star {
+position: absolute;
+width: 2px; height: 2px;
+background: white;
+border-radius: 50%;
+animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+0%,100% { opacity: 0.15; transform: scale(1); }
+50% { opacity: 1; transform: scale(1.6); }
+}
+
+/* ── PAGES ── */
+.page {
+display: none;
+min-height: 100vh;
+position: relative;
+z-index: 1;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 3rem 1.5rem;
+text-align: center;
+}
+.page.active {
+display: flex;
+animation: pageIn 0.9s cubic-bezier(.22,.61,.36,1) both;
+}
+@keyframes pageIn {
+from { opacity: 0; transform: translateY(30px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── COVER ── */
+#p0 .envelope {
+font-size: 5rem;
+animation: float 3s ease-in-out infinite;
+cursor: pointer;
+filter: drop-shadow(0 0 20px rgba(232,83,106,0.5));
+transition: transform 0.2s;
+}
+#p0 .envelope:hover { transform: scale(1.1) translateY(-5px); }
+@keyframes float {
+0%,100% { transform: translateY(0); }
+50% { transform: translateY(-12px); }
+}
+#p0 h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.8rem, 9vw, 5.5rem);
+font-style: italic;
+line-height: 1.1;
+margin: 1.5rem 0 0.5rem;
+background: linear-gradient(135deg, var(–soft), var(–gold));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+#p0 .from {
+font-size: 0.85rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 3rem;
+}
+.open-btn {
+padding: 1rem 2.5rem;
+border: 1px solid var(–rose);
+background: transparent;
+color: var(–rose);
+font-family: ‘Lato’, sans-serif;
+font-size: 0.9rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.3s;
+position: relative;
+overflow: hidden;
+}
+.open-btn::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: var(–rose);
+transform: scaleX(0);
+transform-origin: left;
+transition: transform 0.3s;
+z-index: -1;
+}
+.open-btn:hover { color: white; }
+.open-btn:hover::before { transform: scaleX(1); }
+
+/* ── CARDS ── */
+.card {
+max-width: 560px;
+width: 100%;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(212,168,83,0.2);
+padding: 3rem 2.5rem;
+position: relative;
+backdrop-filter: blur(4px);
+}
+.card-num {
+font-family: ‘Playfair Display’, serif;
+font-size: 6rem;
+font-weight: 700;
+color: rgba(232,83,106,0.12);
+position: absolute;
+top: -1.5rem;
+left: 1.5rem;
+line-height: 1;
+pointer-events: none;
+}
+.card-icon {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+display: block;
+}
+.card h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.6rem, 4vw, 2.2rem);
+font-style: italic;
+color: var(–gold);
+margin-bottom: 1rem;
+}
+.card p {
+font-size: 1rem;
+line-height: 1.85;
+color: rgba(253,240,224,0.82);
+}
+.gold-line {
+width: 50px; height: 1px;
+background: var(–gold);
+margin: 1.2rem auto;
+opacity: 0.5;
+}
+
+/* ── NAV ── */
+.nav {
+display: flex;
+gap: 1rem;
+margin-top: 2.5rem;
+flex-wrap: wrap;
+justify-content: center;
+}
+.btn-nav {
+padding: 0.75rem 1.8rem;
+border: 1px solid rgba(212,168,83,0.4);
+background: transparent;
+color: var(–gold);
+font-family: ‘Lato’, sans-serif;
+font-size: 0.82rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.3s;
+}
+.btn-nav:hover, .btn-nav.next {
+background: var(–gold);
+color: var(–bg);
+border-color: var(–gold);
+}
+
+/* ── APOLOGY ── */
+#p7 .apology-wrap {
+max-width: 560px;
+width: 100%;
+}
+#p7 h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.8rem, 5vw, 3rem);
+font-style: italic;
+color: var(–rose);
+margin-bottom: 1.5rem;
+}
+#p7 .letter {
+background: rgba(255,255,255,0.04);
+border-left: 3px solid var(–rose);
+padding: 2rem;
+text-align: left;
+font-size: 1rem;
+line-height: 1.9;
+color: rgba(253,240,224,0.85);
+font-style: italic;
+}
+
+/* ── FORGIVENESS PAGE ── */
+#p8 .big-q {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2rem, 7vw, 4rem);
+font-style: italic;
+color: var(–cream);
+margin-bottom: 0.5rem;
+}
+#p8 .heart-spin {
+font-size: 3rem;
+display: block;
+margin-bottom: 1.5rem;
+animation: heartbeat 1.2s ease-in-out infinite;
+}
+@keyframes heartbeat {
+0%,100% { transform: scale(1); }
+20% { transform: scale(1.25); }
+40% { transform: scale(1); }
+60% { transform: scale(1.15); }
+}
+
+.forgive-btns {
+display: flex;
+gap: 1.5rem;
+justify-content: center;
+margin-top: 2rem;
+flex-wrap: wrap;
+}
+
+#btn-yes {
+padding: 1rem 3rem;
+background: var(–rose);
+border: none;
+color: white;
+font-family: ‘Playfair Display’, serif;
+font-size: 1.3rem;
+font-style: italic;
+cursor: pointer;
+border-radius: 2px;
+transition: all 0.3s;
+box-shadow: 0 0 20px rgba(232,83,106,0.3);
+}
+#btn-yes:hover {
+transform: scale(1.05);
+box-shadow: 0 0 35px rgba(232,83,106,0.6);
+}
+
+#btn-no {
+padding: 1rem 3rem;
+background: transparent;
+border: 1px solid var(–muted);
+color: var(–muted);
+font-family: ‘Lato’, sans-serif;
+font-size: 1rem;
+cursor: pointer;
+border-radius: 2px;
+transition: transform 0.15s ease, left 0.15s, top 0.15s;
+position: relative;
+}
+
+.no-hint {
+font-size: 0.75rem;
+color: var(–muted);
+margin-top: 1rem;
+opacity: 0.6;
+min-height: 1.2em;
+transition: opacity 0.3s;
+}
+
+/* ── FINAL ── */
+#p9 .finale-icon {
+font-size: 4.5rem;
+display: block;
+margin-bottom: 1.5rem;
+animation: spin-in 0.8s cubic-bezier(.22,.61,.36,1) both;
+}
+@keyframes spin-in {
+from { transform: scale(0) rotate(-180deg); opacity: 0; }
+to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+#p9 h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2rem, 7vw, 4rem);
+font-style: italic;
+background: linear-gradient(135deg, var(–soft), var(–gold));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+margin-bottom: 1rem;
+}
+#p9 p {
+font-size: 1rem;
+line-height: 1.8;
+max-width: 420px;
+color: rgba(253,240,224,0.8);
+}
+.confetti-wrap {
+position: fixed; inset: 0;
+pointer-events: none;
+z-index: 100;
+overflow: hidden;
+}
+.conf {
+position: absolute;
+width: 10px; height: 10px;
+border-radius: 2px;
+animation: confFall 2.5s ease-out forwards;
+}
+@keyframes confFall {
+0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── PROGRESS ── */
+.progress {
+position: fixed;
+bottom: 1.5rem;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 7px;
+z-index: 20;
+}
+.dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: rgba(212,168,83,0.25);
+transition: background 0.4s, transform 0.3s;
+}
+.dot.active {
+background: var(–gold);
+transform: scale(1.3);
+}
+</style>
+
+</head>
+<body>
+
+<!-- Stars -->
+
+<div class="stars" id="stars"></div>
+
+<!-- PAGE 0: Cover -->
+
+<div class="page active" id="p0">
+  <div class="envelope" onclick="go(1)">💌</div>
+  <h1>Para María</h1>
+  <p class="from">Con todo mi amor — Sebastián</p>
+  <button class="open-btn" onclick="go(1)">Abrir carta ✦</button>
+</div>
+
+<!-- PAGE 1 -->
+
+<div class="page" id="p1">
+  <div class="card">
+    <span class="card-num">01</span>
+    <span class="card-icon">✨</span>
+    <h2>Tu risa me para el mundo</h2>
+    <div class="gold-line"></div>
+    <p>Me encanta tu voz. Me encanta escucharte. Y tu risa — esa risa que es tan tuya — me para el mundo cada vez que la escucho. No importa cómo esté el día, cuando tú ríes, todo lo demás desaparece. Eres tú, y eso es suficiente para que todo valga.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(0)">← Volver</button>
+    <button class="btn-nav next" onclick="go(2)">Seguir →</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="p2">
+  <div class="card">
+    <span class="card-num">02</span>
+    <span class="card-icon">🌹</span>
+    <h2>Tus ojos son mi café favorito</h2>
+    <div class="gold-line"></div>
+    <p>Me encantan tus ojos. Ese café tuyo es mi favorito — sé que suena algo cliché, pero es verdad. Me pierdo en ellos y no quiero salir. Me encanta tu piel blanca, me encantan tus cachetes rojos, me encanta tu cabello rojo. Eres preciosa, María. Completamente preciosa.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(1)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(3)">Seguir →</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+
+<div class="page" id="p3">
+  <div class="card">
+    <span class="card-num">03</span>
+    <span class="card-icon">🔥</span>
+    <h2>Me encanta lo dedicada que eres</h2>
+    <div class="gold-line"></div>
+    <p>Me encanta lo dedicada que eres en todo. En cada cosa que haces, te entregas de verdad — no a medias, no por cumplir. Te preocupas, trabajas, das lo mejor de ti siempre. Tienes esa forma de hacer las cosas con el alma que no todo el mundo tiene, y yo lo veo en ti todos los días, María. Eso me enamora.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(2)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(4)">Seguir →</button>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+
+<div class="page" id="p4">
+  <div class="card">
+    <span class="card-num">04</span>
+    <span class="card-icon">💫</span>
+    <h2>Esa cabecita tuya me mata</h2>
+    <div class="gold-line"></div>
+    <p>Me encanta cómo mueves la cabeza — esa forma tan tuya, tan tierna, como una cabrita. Me encanta cómo bailas. Me encanta cómo te inspiras, cómo terminas lo que empiezas. Me encantan esos detalles que son solo tuyos, que nadie más tiene, que hacen que cuando te veo piense: eres perfecta tal como eres.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(3)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(5)">Seguir →</button>
+  </div>
+</div>
+
+<!-- PAGE 5 -->
+
+<div class="page" id="p5">
+  <div class="card">
+    <span class="card-num">05</span>
+    <span class="card-icon">🌙</span>
+    <h2>Me encanta todo de ti</h2>
+    <div class="gold-line"></div>
+    <p>Me encantan tus manos — son perfectas, son tuyas. Me encantan tus pies. Me encanta besar tu cuello. Me encanta abrazarte. Me encanta estar cerca de ti. No hay parte de ti que no me encante, María — y lo digo así, sin rodeos, porque es la verdad más simple y más bonita que tengo.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(4)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(6)">Seguir →</button>
+  </div>
+</div>
+
+<!-- PAGE 6 -->
+
+<div class="page" id="p6">
+  <div class="card">
+    <span class="card-num">06</span>
+    <span class="card-icon">👑</span>
+    <h2>Quiero casarme contigo, María</h2>
+    <div class="gold-line"></div>
+    <p>Cuando te di el anillo de promesa, supe. No hubo duda, no hubo miedo — solo certeza. Supe que quería casarme contigo y supe que quería pasar toda mi vida a tu lado. Quiero construir algo contigo, aprender de mis errores juntos, custodiar algo hermoso que sea solo nuestro. Eres la persona más maravillosa que conozco, y quiero que seas mía para siempre.</p>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(5)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(7)">Lo que necesito decirte →</button>
+  </div>
+</div>
+
+<!-- PAGE 7: Apology -->
+
+<div class="page" id="p7">
+  <div class="apology-wrap">
+    <h2>Lo siento, María.</h2>
+    <div class="letter">
+      Mi amor, mi muñequita… tú sabes cómo soy yo, sabes lo que me da paz… y eres tú.
+      <br><br>
+      En serio, lo lamento de verdad. Lamento haber sido así, haber reaccionado de esa forma y haberme dejado llevar. Lo que pasó no fue porque estuviera aburrido de la relación ni nada de eso, fue solo rabia por todo lo que venía pasando esta semana… pero eso no justifica nada.
+      <br><br>
+      Te amo muchísimo. Hoy solo quiero que tengas un día bonito.
+      <br><br>
+      Anoche, mientras dormía, me puse a ver cómo hacer ese tipo de cartas en PDF… y bueno, aquí te hice una. Es la primera que hago, pero va con todo mi corazón.
+      <br><br>
+      De verdad te amo mucho, mi amor. Que tengas un excelente día hoy.<br>
+      Avísame si tienes que ir a la universidad para ir a dejarte.
+      <br><br>
+      <strong>Sebastián — tu Pelión 🌹</strong>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn-nav" onclick="go(6)">← Atrás</button>
+    <button class="btn-nav next" onclick="go(8)">La pregunta importante →</button>
+  </div>
+</div>
+
+<!-- PAGE 8: Forgiveness -->
+
+<div class="page" id="p8">
+  <span class="heart-spin">💗</span>
+  <p class="big-q">¿Me perdonas,<br>mi muñequita?</p>
+  <p style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem;">Solo hay una respuesta correcta aquí 😏</p>
+  <div class="forgive-btns">
+    <button id="btn-yes" onclick="handleYes()">Sí 💖</button>
+    <button id="btn-no" onmouseenter="runNo()" ontouchstart="runNo()">No</button>
+  </div>
+  <p class="no-hint" id="no-hint"></p>
+</div>
+
+<!-- PAGE 9: Final -->
+
+<div class="page" id="p9">
+  <span class="finale-icon">🌹</span>
+  <h2>Gracias, mi amor,<br>mi peleoncita,<br>mi muñequita,<br>mi vida entera.</h2>
+  <div class="gold-line"></div>
+  <p>Prometo darte lo mejor de mí cada día. Prometo seguir perdiéndome en ese café de tus ojos que es mi favorito, seguir admirando tus manos perfectas, tu risa que me para el mundo, y esa cabecita tuya tan única. Te amo, María — más de lo que cualquier carta puede decir.</p>
+  <p style="margin-top:1.5rem;font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--gold);">— Sebastián, tu Pelión 🌹</p>
+  <div class="nav" style="margin-top:2.5rem;">
+    <button class="btn-nav next" onclick="go(0)">Volver al inicio 🌸</button>
+  </div>
+</div>
+
+<!-- Progress dots -->
+
+<div class="progress" id="prog"></div>
+
+<!-- Confetti container -->
+
+<div class="confetti-wrap" id="confetti"></div>
+
+<script>
+  const totalPages = 10;
+  let cur = 0;
+  let noCount = 0;
+  const hints = [
+    "Ese botón no funciona muy bien 😅",
+    "Parece que el 'No' está esquivo hoy…",
+    "Mmmm qué curioso, se mueve solo 🤔",
+    "Inténtalo otra vez… si puedes 😏",
+    "El 'No' tiene miedo de ti 😂",
+    "Ya casi, ya casi… ¡Sigue intentando!",
+    "Creo que el 'No' no quiere ser presionado 🏃",
+    "Solo el 'Sí' está disponible hoy 💖"
+  ];
+
+  // Build stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s`;
+    starsEl.appendChild(s);
+  }
+
+  // Build dots
+  const progEl = document.getElementById('prog');
+  for (let i = 0; i < totalPages; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    progEl.appendChild(d);
+  }
+
+  function go(idx) {
+    document.getElementById('p' + cur).classList.remove('active');
+    cur = idx;
+    const el = document.getElementById('p' + cur);
+    el.classList.add('active');
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function runNo() {
+    const btn = document.getElementById('btn-no');
+    const hint = document.getElementById('no-hint');
+    noCount++;
+
+    if (noCount <= 4) {
+      hint.textContent = hints[noCount - 1];
+      const maxX = Math.min(120, window.innerWidth * 0.25);
+      const maxY = 60;
+      const rx = (Math.random() * 2 - 1) * maxX;
+      const ry = (Math.random() * 2 - 1) * maxY;
+      btn.style.transform = `translate(${rx}px, ${ry}px)`;
+      btn.style.transition = 'transform 0.2s ease';
+    }
+
+    if (noCount >= 4) {
+      setTimeout(() => {
+        btn.style.transform = 'translate(0, 0)';
+        btn.textContent = '¡Sí! 💕';
+        btn.style.background = 'rgba(232,83,106,0.2)';
+        btn.style.borderColor = 'var(--rose)';
+        btn.style.color = 'var(--rose)';
+        btn.onmouseenter = null;
+        btn.ontouchstart = null;
+        btn.onclick = handleYes;
+        hint.textContent = '¡Solo hay una respuesta posible! 💖';
+      }, 300);
+    }
+  }
+
+  function handleYes() {
+    go(9);
+    launchConfetti();
+  }
+
+  function launchConfetti() {
+    const colors = ['#e8536a','#d4a853','#f5c6cb','#ffffff','#fdf0e0','#c084fc'];
+    const wrap = document.getElementById('confetti');
+    wrap.innerHTML = '';
+    for (let i = 0; i < 80; i++) {
+      const c = document.createElement('div');
+      c.className = 'conf';
+      c.style.cssText = `
+        left:${Math.random()*100}%;
+        top:-10px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        width:${6+Math.random()*8}px;
+        height:${6+Math.random()*8}px;
+        border-radius:${Math.random()>0.5?'50%':'2px'};
+        animation-delay:${Math.random()*1.5}s;
+        animation-duration:${2+Math.random()*1.5}s;
+      `;
+      wrap.appendChild(c);
+    }
+    setTimeout(() => wrap.innerHTML = '', 5000);
+  }
+</script>
+
+</body>
+</html>
